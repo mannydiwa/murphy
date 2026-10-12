@@ -1,0 +1,60 @@
+# Keeps the three newest stable Murphy releases on the Releases page.
+#
+# Runs after a release is published (and by hand from the Actions tab). Until the
+# repository variable RETENTION_DELETE is set to "true" it only lists what it would
+# remove (dry run). It deletes release pages and their files only: tags and code stay.
+name: Keep the newest three releases
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      delete:
+        description: Actually delete (unticked = dry run, only list)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # needed to delete releases; nothing else
+
+concurrency: retention
+
+jobs:
+  retention:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keep the newest three stable releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DELETE: ${{ (github.event_name == 'workflow_dispatch' && inputs.delete) || (github.event_name == 'release' && vars.RETENTION_DELETE == 'true') }}
+          KEEP: 3
+        run: |
+          set -euo pipefail
+          [ "$GITHUB_REPOSITORY" = "mannydiwa/murphy" ] || { echo "Not Murphy's releases repository: $GITHUB_REPOSITORY"; exit 1; }
+
+          # Published, non-prerelease releases with a vX.Y.Z tag, newest version first.
+          gh api --paginate "repos/$GITHUB_REPOSITORY/releases" \
+            --jq '.[] | select(.draft | not) | select(.prerelease | not)
+                  | select(.tag_name | test("^v[0-9]+[.][0-9]+[.][0-9]+$"))
+                  | [.tag_name, ([.assets[].name] | join(" "))] | @tsv' \
+            | sort -t "$(printf '\t')" -k1,1 -V -r > stable.tsv
+          echo "Stable releases, newest first:"; cut -f1 stable.tsv | sed 's/^/  /'
+
+          # Never clean up after a release that isn't complete.
+          newest=$(head -1 stable.tsv | cut -f1)
+          assets=$(head -1 stable.tsv | cut -f2)
+          for want in "Murphy-$newest-release.apk" "Murphy-$newest-release.apk.sha256"; do
+            case " $assets " in *" $want "*) ;; *) echo "Newest release $newest is missing $want: nothing deleted."; exit 1 ;; esac
+          done
+
+          tail -n +$((KEEP + 1)) stable.tsv | cut -f1 > old.txt
+          if [ ! -s old.txt ]; then echo "$KEEP or fewer stable releases: nothing to remove."; exit 0; fi
+          while read -r tag; do
+            if [ "$DELETE" = "true" ]; then
+              echo "Deleting release $tag (its tag stays)"
+              gh release delete "$tag" --repo "$GITHUB_REPOSITORY" --yes
+            else
+              echo "Dry run: would delete release $tag"
+            fi
+          done < old.txt
