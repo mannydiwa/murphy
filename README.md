@@ -1,11 +1,28 @@
+<div align="center">
+
+<img src="branding/icon.png" width="128" alt="Murphy">
+
 # Murphy
 
-Murphy is an offline music player for Android. It plays the music files already on your phone:
-no account, no ads, no streaming.
+**A free, ad-free offline music player for Android.**
+Your own music files, with an equalizer, synced lyrics, gapless playback, FLAC and DSD hi-res support,
+and Navidrome, Jellyfin and Subsonic servers. No account, no ads, no streaming.
+
+[![Download](https://img.shields.io/badge/Download-Latest_release-2ea44f?style=for-the-badge&logo=github)](https://github.com/mannydiwa/murphy/releases/latest)
+[![Discord](https://img.shields.io/badge/Discord-Join_the_community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/sR7gVXt2nW)
+![Android 7.0+](https://img.shields.io/badge/Android-7.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+
+</div>
 
 This repository holds Murphy's **downloads only**. Murphy's source code is private.
 
-**[⬇ Download the latest version](https://github.com/mannydiwa/murphy/releases/latest)**
+## Screenshots
+<div align="center">
+
+<img src="screenshots/v1.7.0/1-radio.png" width="23%" alt="Radio"> <img src="screenshots/v1.7.0/2-find-stations.png" width="23%" alt="Find stations"> <img src="screenshots/v1.7.0/3-virtual-speakers.png" width="23%" alt="Virtual speakers"> <img src="screenshots/v1.7.0/4-headphone-model.png" width="23%" alt="Headphone model">
+<img src="screenshots/v1.7.0/5-output-devices.png" width="23%" alt="Output devices"> <img src="screenshots/v1.7.0/6-music-servers.png" width="23%" alt="Music servers"> <img src="screenshots/v1.7.0/7-same-song-formats.png" width="23%" alt="Same song, all formats"> <img src="screenshots/v1.7.0/8-update.png" width="23%" alt="Updates">
+
+</div>
 
 ## Highlights
 - Fast library: songs, albums, artists, playlists, genres and folders, with typo-tolerant search.
@@ -55,6 +72,9 @@ is the safest way back. If you can't wait:
 Every Murphy release is signed with the same key, so only genuine Murphy versions can update it.
 If Android says the app "conflicts with an existing package", the APK isn't a Murphy release from
 this page.
+
+## Community
+Chat with other listeners, share ideas and get release news on the [Murphy Discord](https://discord.gg/sR7gVXt2nW). You can also join from **Settings › About Murphy**.
 
 ## Reporting a problem
 Open an [issue](https://github.com/mannydiwa/murphy/issues) with your Murphy version (Settings ›
