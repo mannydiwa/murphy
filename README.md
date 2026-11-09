@@ -12,8 +12,7 @@ and Navidrome, Jellyfin and Subsonic servers. No account, no ads, no streaming.
 [![Discord](https://img.shields.io/badge/Discord-Join_the_community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/sR7gVXt2nW)
 ![Android 7.0+](https://img.shields.io/badge/Android-7.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
-<a href="https://github.com/mannydiwa/murphy/releases/download/v1.9.0/Murphy-v1.9.0-preview.mp4"><img src="screenshots/v1.9.0/preview.webp" width="300" alt="Murphy preview video"></a><br>
-<sub>🔊 Tap for the full video with sound</sub>
+<img src="screenshots/v1.9.0/preview.webp" width="300" alt="Murphy preview video">
 
 </div>
 
